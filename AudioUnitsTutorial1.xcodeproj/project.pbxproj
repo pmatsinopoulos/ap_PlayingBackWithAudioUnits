@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		E55AA9372691B78E00595C01 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E55AA9362691B78E00595C01 /* main.m */; };
+		E55AA9432691C20000595C01 /* CheckError.m in Sources */ = {isa = PBXBuildFile; fileRef = E55AA9422691C20000595C01 /* CheckError.m */; };
+		E55AA948269202E300595C01 /* NSPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = E55AA947269202E300595C01 /* NSPrint.m */; };
+		E55AA94D2692035800595C01 /* OpenAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = E55AA94C2692035800595C01 /* OpenAudioFile.m */; };
+		E55AA951269203C300595C01 /* CharPointerFilenameToNSURLp.m in Sources */ = {isa = PBXBuildFile; fileRef = E55AA950269203C300595C01 /* CharPointerFilenameToNSURLp.m */; };
+		E55AA9582692065F00595C01 /* GetAudioFileAudioStreamBasicDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = E55AA9572692065F00595C01 /* GetAudioFileAudioStreamBasicDescription.m */; };
+		E55AA95F2692C02E00595C01 /* GetNumberOfPackets.m in Sources */ = {isa = PBXBuildFile; fileRef = E55AA95E2692C02E00595C01 /* GetNumberOfPackets.m */; };
+		E55AA9642692C5B000595C01 /* PrintAudioStreamBasicDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = E55AA9632692C5B000595C01 /* PrintAudioStreamBasicDescription.m */; };
+		E55AA9692692D70100595C01 /* PrintAudioFileDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = E55AA9682692D70100595C01 /* PrintAudioFileDictionary.m */; };
+		E55AA96D2692D71B00595C01 /* GetAudioFilePropertyInfoDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = E55AA96C2692D71B00595C01 /* GetAudioFilePropertyInfoDictionary.m */; };
+		E55AA9722692DD7900595C01 /* StopAudioUnitGraphPlayingBack.m in Sources */ = {isa = PBXBuildFile; fileRef = E55AA9712692DD7900595C01 /* StopAudioUnitGraphPlayingBack.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +35,27 @@
 /* Begin PBXFileReference section */
 		E55AA9332691B78E00595C01 /* AudioUnitsTutorial1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AudioUnitsTutorial1; sourceTree = BUILT_PRODUCTS_DIR; };
 		E55AA9362691B78E00595C01 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E55AA93E2691BE4E00595C01 /* MyAUGraphPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAUGraphPlayer.h; sourceTree = "<group>"; };
+		E55AA9422691C20000595C01 /* CheckError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckError.m; sourceTree = "<group>"; };
+		E55AA9462691C25900595C01 /* CheckError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckError.h; sourceTree = "<group>"; };
+		E55AA947269202E300595C01 /* NSPrint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSPrint.m; sourceTree = "<group>"; };
+		E55AA94A2692030100595C01 /* NSPrint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSPrint.h; sourceTree = "<group>"; };
+		E55AA94C2692035800595C01 /* OpenAudioFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenAudioFile.m; sourceTree = "<group>"; };
+		E55AA94F2692038B00595C01 /* OpenAudioFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenAudioFile.h; sourceTree = "<group>"; };
+		E55AA950269203C300595C01 /* CharPointerFilenameToNSURLp.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CharPointerFilenameToNSURLp.m; sourceTree = "<group>"; };
+		E55AA954269203E200595C01 /* CharPointerFilenameToNSURLp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CharPointerFilenameToNSURLp.h; sourceTree = "<group>"; };
+		E55AA9572692065F00595C01 /* GetAudioFileAudioStreamBasicDescription.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetAudioFileAudioStreamBasicDescription.m; sourceTree = "<group>"; };
+		E55AA95A2692067A00595C01 /* GetAudioFileAudioStreamBasicDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetAudioFileAudioStreamBasicDescription.h; sourceTree = "<group>"; };
+		E55AA95E2692C02E00595C01 /* GetNumberOfPackets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetNumberOfPackets.m; sourceTree = "<group>"; };
+		E55AA9612692C03A00595C01 /* GetNumberOfPackets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetNumberOfPackets.h; sourceTree = "<group>"; };
+		E55AA9632692C5B000595C01 /* PrintAudioStreamBasicDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintAudioStreamBasicDescription.m; sourceTree = "<group>"; };
+		E55AA9662692C5BD00595C01 /* PrintAudioStreamBasicDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrintAudioStreamBasicDescription.h; sourceTree = "<group>"; };
+		E55AA9682692D70100595C01 /* PrintAudioFileDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintAudioFileDictionary.m; sourceTree = "<group>"; };
+		E55AA96B2692D70C00595C01 /* PrintAudioFileDictionary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrintAudioFileDictionary.h; sourceTree = "<group>"; };
+		E55AA96C2692D71B00595C01 /* GetAudioFilePropertyInfoDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetAudioFilePropertyInfoDictionary.m; sourceTree = "<group>"; };
+		E55AA96F2692D72600595C01 /* GetAudioFilePropertyInfoDictionary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetAudioFilePropertyInfoDictionary.h; sourceTree = "<group>"; };
+		E55AA9712692DD7900595C01 /* StopAudioUnitGraphPlayingBack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StopAudioUnitGraphPlayingBack.m; sourceTree = "<group>"; };
+		E55AA9742692DDC800595C01 /* StopAudioUnitGraphPlayingBack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StopAudioUnitGraphPlayingBack.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +88,54 @@
 		E55AA9352691B78E00595C01 /* AudioUnitsTutorial1 */ = {
 			isa = PBXGroup;
 			children = (
+				E55AA94B2692034800595C01 /* AudioUtils */,
+				E55AA9412691C1E100595C01 /* Utils */,
 				E55AA9362691B78E00595C01 /* main.m */,
+				E55AA93E2691BE4E00595C01 /* MyAUGraphPlayer.h */,
 			);
 			path = AudioUnitsTutorial1;
+			sourceTree = "<group>";
+		};
+		E55AA9412691C1E100595C01 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E55AA9422691C20000595C01 /* CheckError.m */,
+				E55AA9462691C25900595C01 /* CheckError.h */,
+				E55AA947269202E300595C01 /* NSPrint.m */,
+				E55AA94A2692030100595C01 /* NSPrint.h */,
+				E55AA950269203C300595C01 /* CharPointerFilenameToNSURLp.m */,
+				E55AA954269203E200595C01 /* CharPointerFilenameToNSURLp.h */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		E55AA94B2692034800595C01 /* AudioUtils */ = {
+			isa = PBXGroup;
+			children = (
+				E55AA96F2692D72600595C01 /* GetAudioFilePropertyInfoDictionary.h */,
+				E55AA96C2692D71B00595C01 /* GetAudioFilePropertyInfoDictionary.m */,
+				E55AA95C269208E700595C01 /* PrintUtils */,
+				E55AA94C2692035800595C01 /* OpenAudioFile.m */,
+				E55AA94F2692038B00595C01 /* OpenAudioFile.h */,
+				E55AA9572692065F00595C01 /* GetAudioFileAudioStreamBasicDescription.m */,
+				E55AA95A2692067A00595C01 /* GetAudioFileAudioStreamBasicDescription.h */,
+				E55AA95E2692C02E00595C01 /* GetNumberOfPackets.m */,
+				E55AA9612692C03A00595C01 /* GetNumberOfPackets.h */,
+				E55AA9712692DD7900595C01 /* StopAudioUnitGraphPlayingBack.m */,
+				E55AA9742692DDC800595C01 /* StopAudioUnitGraphPlayingBack.h */,
+			);
+			path = AudioUtils;
+			sourceTree = "<group>";
+		};
+		E55AA95C269208E700595C01 /* PrintUtils */ = {
+			isa = PBXGroup;
+			children = (
+				E55AA96B2692D70C00595C01 /* PrintAudioFileDictionary.h */,
+				E55AA9682692D70100595C01 /* PrintAudioFileDictionary.m */,
+				E55AA9662692C5BD00595C01 /* PrintAudioStreamBasicDescription.h */,
+				E55AA9632692C5B000595C01 /* PrintAudioStreamBasicDescription.m */,
+			);
+			path = PrintUtils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,7 +194,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E55AA96D2692D71B00595C01 /* GetAudioFilePropertyInfoDictionary.m in Sources */,
+				E55AA9692692D70100595C01 /* PrintAudioFileDictionary.m in Sources */,
+				E55AA951269203C300595C01 /* CharPointerFilenameToNSURLp.m in Sources */,
 				E55AA9372691B78E00595C01 /* main.m in Sources */,
+				E55AA95F2692C02E00595C01 /* GetNumberOfPackets.m in Sources */,
+				E55AA9432691C20000595C01 /* CheckError.m in Sources */,
+				E55AA9722692DD7900595C01 /* StopAudioUnitGraphPlayingBack.m in Sources */,
+				E55AA94D2692035800595C01 /* OpenAudioFile.m in Sources */,
+				E55AA9582692065F00595C01 /* GetAudioFileAudioStreamBasicDescription.m in Sources */,
+				E55AA9642692C5B000595C01 /* PrintAudioStreamBasicDescription.m in Sources */,
+				E55AA948269202E300595C01 /* NSPrint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
