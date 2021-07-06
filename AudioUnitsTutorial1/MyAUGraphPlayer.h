@@ -16,8 +16,8 @@ typedef struct MyAUGraphPlayer {
   AudioStreamBasicDescription inputFormat;
   AudioFileID                 inputFile;
   
-  AUGraph graph;
-  AudioUnit fileAU;
+  AUGraph   graph;
+  Float64   fileDurationInSeconds;
 } MyAUGraphPlayer;
 
 #endif /* MyAUGraphPlayer_h */

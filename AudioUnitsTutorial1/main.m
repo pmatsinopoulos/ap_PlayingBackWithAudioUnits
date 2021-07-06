@@ -7,7 +7,8 @@
 
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-#import <AudioUnit/AudioUnit.h>
+#import <AudioToolbox/AUGraph.h>
+#import <AudioToolbox/AUComponent.h>
 #import <unistd.h>
 #import <stdio.h>
 
@@ -44,21 +45,24 @@ void CreateMyAUGraph(MyAUGraphPlayer *player) {
   CheckError(AUGraphAddNode(player->graph, &outputDefault, &outputDefaultNode), "Graph Add Audio Unit Output Node");
   // -----------------------------------------------------------------
   
-  // Open the Graph
-  CheckError(AUGraphOpen(player->graph), "Opening Graph");
-  
-  // Get access to the Audio Unit for the file player node
-  CheckError(AUGraphNodeInfo(player->graph, filePlayerNode, NULL, &player->fileAU), "Getting the Audio Unit of the file player node");
-  
   // Connect Nodes
   CheckError(AUGraphConnectNodeInput(player->graph, filePlayerNode, 0, outputDefaultNode, 0), "Connecting file player node to output node");
+
+  // Open the Graph
+  CheckError(AUGraphOpen(player->graph), "Opening Graph");  
   
   // Initialize the Graph
   CheckError(AUGraphInitialize(player->graph), "Initializing the Audio Unit Graph");
 }
 
-Float64 PrepareFileAU(MyAUGraphPlayer *player) {
-  CheckError(AudioUnitSetProperty(player->fileAU,
+void PrepareFileAU(MyAUGraphPlayer *player) {
+  AUNode filePlayerNode;
+  CheckError(AUGraphGetIndNode(player->graph, 0, &filePlayerNode), "Getting access to the file player node");
+  
+  AudioUnit fileAudioUnit;
+  CheckError(AUGraphNodeInfo(player->graph, filePlayerNode, NULL, &fileAudioUnit), "Getting the Audio Unit of the file player node");
+  
+  CheckError(AudioUnitSetProperty(fileAudioUnit,
                                   kAudioUnitProperty_ScheduledFileIDs,
                                   kAudioUnitScope_Global,
                                   0,
@@ -81,7 +85,7 @@ Float64 PrepareFileAU(MyAUGraphPlayer *player) {
   rgn.mStartFrame = 0;
   rgn.mFramesToPlay = packetsCount * player->inputFormat.mFramesPerPacket; // Do I have Constant Number of Frames per Packet?
 
-  CheckError(AudioUnitSetProperty(player->fileAU, kAudioUnitProperty_ScheduledFileRegion, kAudioUnitScope_Global, 0, &rgn, sizeof(rgn)),
+  CheckError(AudioUnitSetProperty(fileAudioUnit, kAudioUnitProperty_ScheduledFileRegion, kAudioUnitScope_Global, 0, &rgn, sizeof(rgn)),
              "Setting the audio unit property kAudioUnitProperty_ScheduledFileRegion");
 
   // Tell when to start playing back
@@ -90,10 +94,15 @@ Float64 PrepareFileAU(MyAUGraphPlayer *player) {
   startTime.mFlags = kAudioTimeStampSampleTimeValid;
   startTime.mSampleTime = -1;
 
-  CheckError(AudioUnitSetProperty(player->fileAU, kAudioUnitProperty_ScheduleStartTimeStamp, kAudioUnitScope_Global, 0, &startTime, sizeof(startTime)),
+  CheckError(AudioUnitSetProperty(fileAudioUnit, kAudioUnitProperty_ScheduleStartTimeStamp, kAudioUnitScope_Global, 0, &startTime, sizeof(startTime)),
              "Setting the desired start for the play back to be as soon as possible");
 
-  return (rgn.mFramesToPlay / player->inputFormat.mSampleRate);
+  player->fileDurationInSeconds = rgn.mFramesToPlay / player->inputFormat.mSampleRate;
+}
+
+void PrepareAudioUnitGraph(MyAUGraphPlayer *player) {
+  CreateMyAUGraph(player);
+  PrepareFileAU(player);
 }
 
 int main(int argc, const char * argv[]) {
@@ -113,9 +122,8 @@ int main(int argc, const char * argv[]) {
     
     PrintAudioStreamBasicDescription(player.inputFormat);
     
-    CreateMyAUGraph(&player);
-    Float64 fileDuration = PrepareFileAU(&player);
-    
+    PrepareAudioUnitGraph(&player);
+        
     NSPrint(@"--------------\n");
     NSPrint(@"Click <Enter> to start playing back...\n");
     getchar();
@@ -123,7 +131,7 @@ int main(int argc, const char * argv[]) {
     CheckError(AUGraphStart(player.graph), "Starting AU Graph...");
     
     // We will terminate a little while (0.5 seconds) after the expected end of playback.
-    Float64 sleepDuration = fileDuration + 0.5;
+    Float64 sleepDuration = player.fileDurationInSeconds + 0.5;
     NSPrint(@"Sleeping for: %f to allow for playback to finish\n", sleepDuration);
     
     usleep((int)(sleepDuration * 1000 * 1000));
