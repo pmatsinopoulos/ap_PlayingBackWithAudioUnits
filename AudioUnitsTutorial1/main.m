@@ -32,7 +32,10 @@ void CreateMyAUGraph(MyAUGraphPlayer *player) {
   generatorDescription.componentManufacturer = kAudioUnitManufacturer_Apple;
   
   AUNode filePlayerNode;
-  CheckError(AUGraphAddNode(player->graph, &generatorDescription, &filePlayerNode), "Graph Add Audio Unit File Player Node");
+  CheckError(AUGraphAddNode(player->graph,
+                            &generatorDescription,
+                            &filePlayerNode),
+             "Graph Add Audio Unit File Player Node");
   // ------------------------------------------------
 
   // Creating an Output Type Audio Unit with DefaultOuptut subtype
@@ -42,11 +45,19 @@ void CreateMyAUGraph(MyAUGraphPlayer *player) {
   outputDefault.componentManufacturer = kAudioUnitManufacturer_Apple;
   
   AUNode outputDefaultNode;
-  CheckError(AUGraphAddNode(player->graph, &outputDefault, &outputDefaultNode), "Graph Add Audio Unit Output Node");
+  CheckError(AUGraphAddNode(player->graph,
+                            &outputDefault,
+                            &outputDefaultNode),
+             "Graph Add Audio Unit Output Node");
   // -----------------------------------------------------------------
   
   // Connect Nodes
-  CheckError(AUGraphConnectNodeInput(player->graph, filePlayerNode, 0, outputDefaultNode, 0), "Connecting file player node to output node");
+  CheckError(AUGraphConnectNodeInput(player->graph,
+                                     filePlayerNode,
+                                     0,
+                                     outputDefaultNode,
+                                     0),
+             "Connecting file player node to output node");
 
   // Open the Graph
   CheckError(AUGraphOpen(player->graph), "Opening Graph");  
@@ -57,10 +68,17 @@ void CreateMyAUGraph(MyAUGraphPlayer *player) {
 
 void PrepareFileAU(MyAUGraphPlayer *player) {
   AUNode filePlayerNode;
-  CheckError(AUGraphGetIndNode(player->graph, 0, &filePlayerNode), "Getting access to the file player node");
+  CheckError(AUGraphGetIndNode(player->graph,
+                               0,
+                               &filePlayerNode),
+             "Getting access to the file player node");
   
   AudioUnit fileAudioUnit;
-  CheckError(AUGraphNodeInfo(player->graph, filePlayerNode, NULL, &fileAudioUnit), "Getting the Audio Unit of the file player node");
+  CheckError(AUGraphNodeInfo(player->graph,
+                             filePlayerNode,
+                             NULL,
+                             &fileAudioUnit),
+             "Getting the Audio Unit of the file player node");
   
   CheckError(AudioUnitSetProperty(fileAudioUnit,
                                   kAudioUnitProperty_ScheduledFileIDs,
@@ -68,24 +86,31 @@ void PrepareFileAU(MyAUGraphPlayer *player) {
                                   0,
                                   &player->inputFile,
                                   sizeof(player->inputFile)),
-                                  "Audio Unit setting property value for kAudioUnitProperty_ScheduledFileIDs");
+             "Audio Unit setting property value for kAudioUnitProperty_ScheduledFileIDs");
   
   UInt64 packetsCount = 237;
   GetNumberOfPackets(player->inputFile, "Getting the number of packets from the input file", &packetsCount);
   
   // Tell the Audio Unit for file player to play the whole file
   ScheduledAudioFileRegion rgn;
+  
   memset(&(rgn.mTimeStamp), 0, sizeof(rgn.mTimeStamp));
   rgn.mTimeStamp.mFlags = kAudioTimeStampSampleTimeValid;
   rgn.mTimeStamp.mSampleTime = 0;
+  
   rgn.mCompletionProc = NULL;
   rgn.mCompletionProcUserData = NULL;
   rgn.mAudioFile = player->inputFile;
   rgn.mLoopCount = 0;
   rgn.mStartFrame = 0;
-  rgn.mFramesToPlay = packetsCount * player->inputFormat.mFramesPerPacket; // Do I have Constant Number of Frames per Packet?
+  rgn.mFramesToPlay = packetsCount * player->inputFormat.mFramesPerPacket;
 
-  CheckError(AudioUnitSetProperty(fileAudioUnit, kAudioUnitProperty_ScheduledFileRegion, kAudioUnitScope_Global, 0, &rgn, sizeof(rgn)),
+  CheckError(AudioUnitSetProperty(fileAudioUnit,
+                                  kAudioUnitProperty_ScheduledFileRegion,
+                                  kAudioUnitScope_Global,
+                                  0,
+                                  &rgn,
+                                  sizeof(rgn)),
              "Setting the audio unit property kAudioUnitProperty_ScheduledFileRegion");
 
   // Tell when to start playing back
@@ -94,7 +119,12 @@ void PrepareFileAU(MyAUGraphPlayer *player) {
   startTime.mFlags = kAudioTimeStampSampleTimeValid;
   startTime.mSampleTime = -1;
 
-  CheckError(AudioUnitSetProperty(fileAudioUnit, kAudioUnitProperty_ScheduleStartTimeStamp, kAudioUnitScope_Global, 0, &startTime, sizeof(startTime)),
+  CheckError(AudioUnitSetProperty(fileAudioUnit,
+                                  kAudioUnitProperty_ScheduleStartTimeStamp,
+                                  kAudioUnitScope_Global,
+                                  0,
+                                  &startTime,
+                                  sizeof(startTime)),
              "Setting the desired start for the play back to be as soon as possible");
 
   player->fileDurationInSeconds = rgn.mFramesToPlay / player->inputFormat.mSampleRate;
@@ -138,7 +168,7 @@ int main(int argc, const char * argv[]) {
     
     StopAudioUnitGraphPlayingBack(player.graph);
     
-    AudioFileClose(player.inputFile);
+    CheckError(AudioFileClose(player.inputFile), "closing the audio input file");
   }
   return 0;
 }
